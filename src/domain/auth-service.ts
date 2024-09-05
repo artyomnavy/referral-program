@@ -1,14 +1,22 @@
-import {v4 as uuidv4} from 'uuid';
-import {invitesRepository} from "../repositories/invites-repository";
+import {v4 as uuidv4} from "uuid";
+import {add} from "date-fns/add";
+import {referrersRepository} from "../repositories/referrers-repository";
 
 export const authService = {
-    async generateReferal(protocol: string, host: string) {
-        const refererId = uuidv4();
+    async generateReferralLink(protocol: string, host: string, studentId: string) {
+        const referrer = new Referrer(
+            uuidv4(),
+            studentId,
+            0,
+            add(new Date(), {
+                days: 3
+            })
+        )
 
-        await invitesRepository.createReferer(refererId);
+        const refId = await referrersRepository.createReferrer(referrer)
 
         return {
-            inviteLink: `${protocol}://${host}/auth/registration?refererId=${refererId}`
+            inviteLink: `${protocol}://${host}/auth/referral-registration?referer=${refId}`
         }
     }
 }

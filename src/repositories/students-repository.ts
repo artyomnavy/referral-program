@@ -22,6 +22,7 @@ export const studentsRepository = {
 
         } catch (error) {
             console.error('Student not created: ', error);
+
             throw new Error('Student not created');
         }
     }
