@@ -4,10 +4,10 @@ import {db} from "../db/db";
 export const studentsQueryRepository = {
     async getStudentByPhoneOrEmail(phoneOrEmail: string): Promise<StudentType | null> {
         try {
-            const student = await db('students')
+            const student = await db('Students')
                 .where({email: phoneOrEmail})
                 .orWhere({phone: phoneOrEmail})
-                .select('id', 'phone', 'email', 'password', 'refId', 'createdAt')
+                .select('id', 'fullName', 'phone', 'email', 'password', 'referrerId', 'createdAt')
                 .first();
 
             if (!student) {
@@ -22,9 +22,9 @@ export const studentsQueryRepository = {
     },
     async getStudentByEmail(email: string): Promise<StudentOutputType | null> {
         try {
-            const student = await db('students')
+            const student = await db('Students')
                 .where({email: email})
-                .select('id', 'phone', 'email', 'refId')
+                .select('id', 'fullName', 'phone', 'email', 'referrerId')
                 .first();
 
             if (!student) {
@@ -35,6 +35,23 @@ export const studentsQueryRepository = {
         } catch (error) {
             console.error('Error in receiving student by email: ', error);
             throw new Error('Error in receiving student by email. Please, try later.');
+        }
+    },
+    async getStudentById(id: string): Promise<StudentOutputType | null> {
+        try {
+            const student = await db('Students')
+                .where({id: id})
+                .select('id','fullName', 'phone', 'email', 'referrerId')
+                .first();
+
+            if (!student) {
+                return null
+            } else {
+                return student
+            }
+        } catch (error) {
+            console.error('Error in receiving student by id: ', error);
+            throw new Error('Error in receiving student by id. Please, try later.');
         }
     }
 }

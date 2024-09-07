@@ -4,11 +4,11 @@ const jwtSecret = process.env.JWT_SECRET || '123'
 
 export const jwtService = {
     async createAccessJWT(studentId: string) {
-        const accessToken = jwt.sign({studentId}, jwtSecret, {expiresIn: 10})
+        const accessToken = jwt.sign({studentId}, jwtSecret, {expiresIn: '10m'})
         return accessToken
     },
     async createRefreshJWT(studentId: string) {
-        const refreshToken = jwt.sign({studentId}, jwtSecret, {expiresIn: 20})
+        const refreshToken = jwt.sign({studentId}, jwtSecret, {expiresIn: '20m'})
         return refreshToken
     },
     async getPayloadByToken(token: string) {

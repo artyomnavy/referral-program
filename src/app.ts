@@ -2,6 +2,8 @@ import express from 'express';
 import cookieParser from "cookie-parser";
 import {authRouter} from "./routes/auth-router";
 import {studentsRouter} from "./routes/students-router";
+import {paymentsRouter} from "./routes/payments-router";
+import {testingRouter} from "./routes/testing-router";
 
 export const app = express();
 
@@ -12,3 +14,5 @@ app.use(cookieParser());
 
 app.use('/auth', authRouter);
 app.use('/sa', studentsRouter);
+app.use('/payments', paymentsRouter);
+app.use('/testing', testingRouter)

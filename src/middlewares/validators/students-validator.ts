@@ -2,6 +2,24 @@ import {body} from "express-validator";
 import {inputModelValidation} from "../input-model-validation";
 import {studentsQueryRepository} from "../../repositories/students-query-repository";
 
+const phoneOrEmailValidation = body('phoneOrEmail')
+    .isString()
+    .trim()
+    .notEmpty()
+    .custom(async (value) => {
+        const phoneRegex = /^\+7\d{10}$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (phoneRegex.test(value)) {
+            return true
+        } else if (emailRegex.test(value)) {
+            return true
+        } else {
+            throw new Error('Invalid phone or email')
+        }
+    })
+    .withMessage('Invalid login or email')
+
 const emailValidation = body('email')
     .isString()
     .trim()
@@ -28,8 +46,23 @@ const passwordValidation = body('password')
 const phoneValidation = body('phone')
     .isString()
     .trim()
-    .isLength({min: 11, max: 11})
+    .isMobilePhone('ru-RU')
     .withMessage('Invalid phone')
 
-export const studentAuthLoginValidation = [emailValidation, passwordValidation, inputModelValidation]
-export const studentValidation = [phoneValidation, emailValidation, emailUniqueValidation, passwordValidation, inputModelValidation]
+const fullNameValidation = body('fullName')
+    .isString()
+    .trim()
+    .isLength({min: 5})
+    .withMessage('Invalid fullName')
+
+export const referrerValidation = body('refLinkId')
+    .isString()
+    .trim()
+    .isUUID('4')
+    .withMessage('Invalid refLinkId')
+
+
+
+export const studentAuthLoginValidation = [phoneOrEmailValidation, passwordValidation, inputModelValidation]
+export const studentValidation = [fullNameValidation, phoneValidation, emailValidation, emailUniqueValidation, passwordValidation, inputModelValidation]
+export const studentReferralFormValidation = [referrerValidation, fullNameValidation, phoneValidation, emailValidation, emailUniqueValidation, passwordValidation, inputModelValidation]

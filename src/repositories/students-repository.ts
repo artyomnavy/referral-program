@@ -4,20 +4,22 @@ import {Student, StudentOutputType} from "../types/student.output";
 export const studentsRepository = {
     async createStudent(newStudent: Student): Promise<StudentOutputType> {
         try {
-            const createStudent = await db('users').insert({
+            const createStudent = await db('Students').insert({
                 id: newStudent.id,
+                fullName: newStudent.fullName,
                 phone: newStudent.phone,
                 email: newStudent.email,
                 password: newStudent.password,
-                refId: newStudent.refId,
+                referrerId: newStudent.referrerId,
                 createdAt: newStudent.createdAt
-            });
+            }).returning(['id', 'fullName', 'phone', 'email', 'referrerId'])
 
             return {
-                id: createStudent[0].toString(),
-                phone: newStudent.phone,
-                email: newStudent.email,
-                refId: newStudent.refId
+                id: createStudent[0].id,
+                fullName: createStudent[0].fullName,
+                phone: createStudent[0].phone,
+                email: createStudent[0].email,
+                referrerId: createStudent[0].referrerId
             };
 
         } catch (error) {
