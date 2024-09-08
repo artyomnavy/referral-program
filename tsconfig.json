@@ -1,14 +1,19 @@
 {
   "compilerOptions": {
     "target": "es2016",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "module": "commonjs",
+    "moduleResolution": "node",
+    "types": ["reflect-metadata", "jest", "node"],
+    "sourceMap": true,
     "outDir": "./dist",
     "strict": true,
     "noImplicitReturns": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.test.ts"]

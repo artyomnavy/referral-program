@@ -7,6 +7,7 @@ export type StudentType = {
     referrerId: string
     createdAt: Date
 }
+
 export type StudentOutputType = {
     id: string,
     fullName: string,
@@ -24,5 +25,6 @@ export class Student {
         public password: string,
         public referrerId: string | null,
         public createdAt: Date
-    ) {}
+    ) {
+    }
 }

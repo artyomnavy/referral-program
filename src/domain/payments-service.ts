@@ -2,9 +2,11 @@ import {v4 as uuidv4} from "uuid";
 import {Payment} from "../types/payment.output";
 import {PaymentReferralModel} from "../types/payment.input";
 import {PaymentsRepository} from "../repositories/payments-repository";
+import {inject, injectable} from "inversify";
 
+@injectable()
 export class PaymentsService {
-    constructor(protected paymentsRepository: PaymentsRepository) {
+    constructor(@inject(PaymentsRepository) protected paymentsRepository: PaymentsRepository) {
     }
     async addPaymentReferral(createData:
         {

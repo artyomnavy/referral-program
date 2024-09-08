@@ -2,9 +2,11 @@ import {v4 as uuidv4} from "uuid";
 import {add} from "date-fns/add";
 import {ReferrersRepository} from "../repositories/referrers-repository";
 import {Referrer} from "../types/referrer.output";
+import {inject, injectable} from "inversify";
 
+@injectable()
 export class AuthService {
-    constructor(protected referrersRepository: ReferrersRepository) {
+    constructor(@inject(ReferrersRepository) protected referrersRepository: ReferrersRepository) {
     }
     async generateReferralLink(protocol: string, host: string, studentId: string) {
         const referrer = new Referrer(

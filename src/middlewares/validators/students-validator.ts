@@ -1,6 +1,9 @@
 import {body} from "express-validator";
 import {inputModelValidation} from "../input-model-validation";
-import {studentsQueryRepository} from "../../composition.root";
+import {container} from "../../composition.root";
+import {StudentsQueryRepository} from "../../repositories/students-query-repository";
+
+const studentsQueryRepository = container.resolve(StudentsQueryRepository)
 
 const phoneOrEmailValidation = body('phoneOrEmail')
     .isString()

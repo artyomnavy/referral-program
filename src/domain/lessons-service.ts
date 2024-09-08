@@ -2,10 +2,12 @@ import {v4 as uuidv4} from "uuid";
 import {LessonProduct, LessonsOutputType} from "../types/lessons.output";
 import {LessonsRepository} from "../repositories/lessons-repository";
 import {ReferrersRepository} from "../repositories/referrers-repository";
+import {inject, injectable} from "inversify";
 
+@injectable()
 export class LessonsService {
-    constructor(protected lessonsRepository: LessonsRepository,
-                protected referrersRepository: ReferrersRepository) {
+    constructor(@inject(LessonsRepository) protected lessonsRepository: LessonsRepository,
+                @inject(ReferrersRepository) protected referrersRepository: ReferrersRepository) {
     }
     async addLessonsToStudent(createData: {
         studentId: string;

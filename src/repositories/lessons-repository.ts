@@ -1,6 +1,8 @@
 import {db} from "../db/db";
 import {LessonProduct} from "../types/lessons.output";
+import {injectable} from "inversify";
 
+@injectable()
 export class LessonsRepository {
     async createLessonProduct(lessonProduct: LessonProduct) {
         try {

@@ -1,3 +1,4 @@
+import {injectable, inject} from "inversify";
 import {Response, Request} from "express";
 import {ReferrersQueryRepository} from "../repositories/referrers-query-repository";
 import {AuthService} from "../domain/auth-service";
@@ -9,12 +10,14 @@ import {CreateStudentByReferrerModel} from "../types/student.input";
 import {StudentsService} from "../domain/students-service";
 import {AuthLoginModel} from "../types/auth.input";
 
+
+@injectable()
 export class AuthController {
-    constructor(protected authService: AuthService,
-                protected jwtService: JwtService,
-                protected studentsService: StudentsService,
-                protected referrersRepository: ReferrersRepository,
-                protected referrersQueryRepository: ReferrersQueryRepository,
+    constructor(@inject(AuthService) protected authService: AuthService,
+                @inject(JwtService) protected jwtService: JwtService,
+                @inject(StudentsService) protected studentsService: StudentsService,
+                @inject(ReferrersRepository) protected referrersRepository: ReferrersRepository,
+                @inject(ReferrersQueryRepository) protected referrersQueryRepository: ReferrersQueryRepository,
     ) {
     }
 

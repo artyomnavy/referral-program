@@ -1,8 +1,7 @@
 import request from "supertest";
-import {HTTP_STATUSES} from "../src/utils";
+import {HTTP_STATUSES, PaymentStatuses} from "../src/utils";
 import {StudentOutputType} from "../src/types/student.output";
 import {app} from "../src/app";
-import {PaymentStatuses} from "../src/types/payment.output";
 
 describe('Referral program (e2e)', () => {
 

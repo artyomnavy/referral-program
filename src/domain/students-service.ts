@@ -5,10 +5,12 @@ import {Student, StudentOutputType, StudentType} from "../types/student.output";
 import {CreateStudentByAdminModel, CreateStudentByReferrerModel} from "../types/student.input";
 import {v4 as uuidv4} from "uuid";
 import {StudentsRepository} from "../repositories/students-repository";
+import {inject, injectable} from "inversify";
 
+@injectable()
 export class StudentsService {
-    constructor(protected studentsRepository: StudentsRepository,
-                protected studentsQueryRepository: StudentsQueryRepository ) {
+    constructor(@inject(StudentsRepository) protected studentsRepository: StudentsRepository,
+                @inject(StudentsQueryRepository) protected studentsQueryRepository: StudentsQueryRepository ) {
     }
 
     async createStudentByAdmin(createData: CreateStudentByAdminModel): Promise<StudentOutputType> {

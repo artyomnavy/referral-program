@@ -1,8 +1,10 @@
 import {Router} from "express";
 import {authBasicMiddleware} from "../middlewares/auth/auth-basic";
 import {studentValidation} from "../middlewares/validators/students-validator";
-import {studentsController} from "../composition.root";
+import {container} from "../composition.root";
+import {StudentsController} from "../controllers/students-controller";
 
+const studentsController =container.resolve<StudentsController>(StudentsController)
 export const studentsRouter = Router({});
 
 studentsRouter

@@ -1,7 +1,9 @@
 import jwt from 'jsonwebtoken'
+import {injectable} from "inversify";
 
 const jwtSecret = process.env.JWT_SECRET || '123'
 
+@injectable()
 export class JwtService {
     async createAccessJWT(studentId: string) {
         const accessToken = jwt.sign({studentId}, jwtSecret, {expiresIn: '10m'})

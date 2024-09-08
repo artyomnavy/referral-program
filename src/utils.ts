@@ -9,3 +9,9 @@ export const HTTP_STATUSES = {
     NOT_FOUND_404: 404,
     GONE_410: 410
 }
+
+export enum PaymentStatuses {
+    SUCCESS = 'Success',
+    PENDING = 'Pending',
+    FAILED = 'Failed',
+}

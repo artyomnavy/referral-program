@@ -1,6 +1,8 @@
 import {StudentOutputType, StudentType} from "../types/student.output";
 import {db} from "../db/db";
+import {injectable} from "inversify";
 
+@injectable()
 export class StudentsQueryRepository {
     async getStudentByPhoneOrEmail(phoneOrEmail: string): Promise<StudentType | null> {
         try {

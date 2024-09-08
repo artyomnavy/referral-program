@@ -1,8 +1,10 @@
 import {Router} from "express";
 import {studentAuthLoginValidation, studentReferralFormValidation} from "../middlewares/validators/students-validator";
 import {authBearerMiddleware} from "../middlewares/auth/auth-bearer";
-import {authController} from "../composition.root";
+import {container} from "../composition.root";
+import {AuthController} from "../controllers/auth-controller";
 
+const authController =container.resolve(AuthController)
 export const authRouter = Router({});
 
 authRouter

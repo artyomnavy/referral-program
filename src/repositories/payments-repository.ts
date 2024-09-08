@@ -1,6 +1,8 @@
 import {db} from "../db/db";
 import {Payment} from "../types/payment.output";
+import {injectable} from "inversify";
 
+@injectable()
 export class PaymentsRepository {
     async addPayment(payment: Payment) {
         try {

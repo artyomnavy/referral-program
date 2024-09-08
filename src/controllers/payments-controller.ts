@@ -6,12 +6,14 @@ import {RequestWithBody} from "../types/common";
 import {PaymentReferralModel} from "../types/payment.input";
 import {Response} from "express";
 import {HTTP_STATUSES} from "../utils";
+import {inject, injectable} from "inversify";
 
+@injectable()
 export class PaymentsController {
-    constructor(protected studentsQueryRepository: StudentsQueryRepository,
-                protected referrersQueryRepository: ReferrersQueryRepository,
-                protected paymentsService: PaymentsService,
-                protected lessonsService: LessonsService,
+    constructor(@inject(StudentsQueryRepository) protected studentsQueryRepository: StudentsQueryRepository,
+                @inject(ReferrersQueryRepository) protected referrersQueryRepository: ReferrersQueryRepository,
+                @inject(PaymentsService) protected paymentsService: PaymentsService,
+                @inject(LessonsService) protected lessonsService: LessonsService,
     ) {
     }
 

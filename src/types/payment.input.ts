@@ -1,4 +1,4 @@
-import {PaymentStatuses} from "./payment.output";
+import {PaymentStatuses} from "../utils";
 
 export type PaymentReferralModel = {
     refLinkId: string;

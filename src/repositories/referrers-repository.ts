@@ -1,6 +1,8 @@
 import {db} from "../db/db";
 import {Referrer} from "../types/referrer.output";
+import {injectable} from "inversify";
 
+@injectable()
 export class ReferrersRepository {
     async createReferrer(referrer: Referrer) {
         try {

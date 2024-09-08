@@ -1,8 +1,4 @@
-export enum PaymentStatuses {
-    SUCCESS = 'Success',
-    PENDING = 'Pending',
-    FAILED = 'Failed',
-}
+import {PaymentStatuses} from "../utils";
 
 export class Payment {
     constructor(

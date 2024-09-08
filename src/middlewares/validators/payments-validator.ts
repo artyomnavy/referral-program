@@ -1,7 +1,7 @@
 import {body} from "express-validator";
 import {inputModelValidation} from "../input-model-validation";
-import {PaymentStatuses} from "../../types/payment.output";
 import {referrerValidation} from "./students-validator";
+import {PaymentStatuses} from "../../utils";
 
 const amountValidation = body('amount')
     .isString()

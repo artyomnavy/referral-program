@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import {StudentsRepository} from "./repositories/students-repository";
 import {StudentsQueryRepository} from "./repositories/students-query-repository";
 import {ReferrersRepository} from "./repositories/referrers-repository";
@@ -11,31 +12,32 @@ import {AuthService} from "./domain/auth-service";
 import {JwtService} from "./application/jwt-service";
 import {AuthController} from "./controllers/auth-controller";
 import {PaymentsController} from "./controllers/payments-controller";
-import exp from "node:constants";
 import {StudentsController} from "./controllers/students-controller";
+import {Container} from "inversify";
 
-const studentsRepository = new StudentsRepository()
-export const studentsQueryRepository = new StudentsQueryRepository()
+export const container = new Container()
 
-const referrersRepository = new ReferrersRepository()
-const referrersQueryRepository = new ReferrersQueryRepository()
+// Controllers
+container.bind(AuthController).to(AuthController)
+container.bind(PaymentsController).to(PaymentsController)
+container.bind(StudentsController).to(StudentsController)
 
-const paymentsRepository = new PaymentsRepository()
+// Services
+container.bind(JwtService).to(JwtService)
+container.bind(StudentsService).to(StudentsService)
+container.bind(PaymentsService).to(PaymentsService)
+container.bind(LessonsService).to(LessonsService)
+container.bind(AuthService).to(AuthService)
 
-const lessonsRepository = new LessonsRepository()
+// Repositories
+container.bind(StudentsRepository).to(StudentsRepository)
+container.bind(StudentsQueryRepository).to(StudentsQueryRepository)
 
-export const jwtService = new JwtService()
+container.bind(ReferrersRepository).to(ReferrersRepository)
+container.bind(ReferrersQueryRepository).to(ReferrersQueryRepository)
 
-const studentsService = new StudentsService(studentsRepository, studentsQueryRepository)
+container.bind(PaymentsRepository).to(PaymentsRepository)
+container.bind(LessonsRepository).to(LessonsRepository)
 
-const paymentsService = new PaymentsService(paymentsRepository)
 
-const lessonsService = new LessonsService(lessonsRepository, referrersRepository)
 
-const authService = new AuthService(referrersRepository)
-
-export const authController = new AuthController(authService, jwtService, studentsService, referrersRepository, referrersQueryRepository)
-
-export const paymentsController = new PaymentsController(studentsQueryRepository, referrersQueryRepository, paymentsService, lessonsService)
-
-export const studentsController = new StudentsController(studentsService)
