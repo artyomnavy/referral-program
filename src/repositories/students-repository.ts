@@ -1,7 +1,7 @@
 import {db} from "../db/db";
 import {Student, StudentOutputType} from "../types/student.output";
 
-export const studentsRepository = {
+export class StudentsRepository {
     async createStudent(newStudent: Student): Promise<StudentOutputType> {
         try {
             const createStudent = await db('Students').insert({

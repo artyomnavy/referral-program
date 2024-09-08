@@ -1,10 +1,10 @@
 import {db} from "../db/db";
 import {Payment} from "../types/payment.output";
 
-export const paymentsRepository = {
+export class PaymentsRepository {
     async addPayment(payment: Payment) {
         try {
-            const paymentId = await db('Payments').insert({
+            const [createPayment] = await db('Payments').insert({
                 id: payment.id,
                 studentId: payment.studentId,
                 refLinkId: payment.refLinkId,
@@ -12,13 +12,13 @@ export const paymentsRepository = {
                 paymentStatus: payment.paymentStatus,
                 currency: payment.currency,
                 addedAt: payment.addedAt
-            }).returning('id');
+            }).returning(['id', 'studentId', 'refLinkId', 'amount', 'paymentStatus', 'currency', 'addedAt']);
 
-            return paymentId[0].toString();
+            return createPayment;
         } catch(error) {
             console.error(error);
 
             throw new Error('Payment not added');
         }
-    },
+    }
 }

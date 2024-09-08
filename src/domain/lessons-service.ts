@@ -1,14 +1,17 @@
 import {v4 as uuidv4} from "uuid";
 import {LessonProduct, LessonsOutputType} from "../types/lessons.output";
-import {lessonsRepository} from "../repositories/lessons-repository";
-import {referrersRepository} from "../repositories/referrers-repository";
+import {LessonsRepository} from "../repositories/lessons-repository";
+import {ReferrersRepository} from "../repositories/referrers-repository";
 
-export const lessonsService = {
+export class LessonsService {
+    constructor(protected lessonsRepository: LessonsRepository,
+                protected referrersRepository: ReferrersRepository) {
+    }
     async addLessonsToStudent(createData: {
         studentId: string;
         refLinkId: string;
         countLessons: string;
-        addPayment: string;
+        paymentId: string;
         productName: string
     }): Promise<LessonsOutputType> {
 
@@ -16,17 +19,17 @@ export const lessonsService = {
             uuidv4(),
             createData.studentId,
             createData.refLinkId,
-            createData.addPayment,
+            createData.paymentId,
             createData.productName,
             +createData.countLessons,
             new Date()
         )
 
-        const createLessonProduct = await lessonsRepository
+        const createLessonProduct = await this.lessonsRepository
             .createLessonProduct(newLessonProduct)
 
         return createLessonProduct
-    },
+    }
     async updateBonusLessonsToReferrer(refLinkId: string, countLessons:  string, bonusLessons: number): Promise<{
         refLinkId: string,
         bonusLessons: number
@@ -34,7 +37,7 @@ export const lessonsService = {
 
         const updateBonus = Number(countLessons) + bonusLessons
 
-        const updateBonusLessons = await referrersRepository
+        const updateBonusLessons = await this.referrersRepository
             .updateBonusLessons(refLinkId, updateBonus)
 
         if (!updateBonusLessons) {

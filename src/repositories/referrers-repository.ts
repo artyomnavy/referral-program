@@ -1,7 +1,7 @@
 import {db} from "../db/db";
 import {Referrer} from "../types/referrer.output";
 
-export const referrersRepository = {
+export class ReferrersRepository {
     async createReferrer(referrer: Referrer) {
         try {
             const refLinkId = await db('Referrers').insert({
@@ -18,7 +18,7 @@ export const referrersRepository = {
 
             throw new Error('Referral link not created');
         }
-    },
+    }
     async deleteReferrerById(id: string) {
         try {
             const isDelete = await db('Referrers').where('id', id).del();
@@ -29,7 +29,7 @@ export const referrersRepository = {
 
             throw new Error('Referrer link not deleted');
         }
-    },
+    }
     async updateBonusLessons(id: string, updateBonus: number) {
         try {
             const isUpdate = await db('Referrers').where('id', id).update('bonusLessons', updateBonus);

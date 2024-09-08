@@ -1,6 +1,5 @@
 import {body} from "express-validator";
 import {inputModelValidation} from "../input-model-validation";
-import {studentsQueryRepository} from "../../repositories/students-query-repository";
 import {PaymentStatuses} from "../../types/payment.output";
 import {referrerValidation} from "./students-validator";
 

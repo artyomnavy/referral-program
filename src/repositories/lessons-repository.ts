@@ -1,10 +1,10 @@
 import {db} from "../db/db";
 import {LessonProduct} from "../types/lessons.output";
 
-export const lessonsRepository = {
+export class LessonsRepository {
     async createLessonProduct(lessonProduct: LessonProduct) {
         try {
-            const lessonId = await db('Lessons').insert({
+            const createLesson = await db('Lessons').insert({
                 id: lessonProduct.id,
                 studentId: lessonProduct.studentId,
                 refLinkId: lessonProduct.refLinkId,
@@ -12,17 +12,17 @@ export const lessonsRepository = {
                 productName: lessonProduct.productName,
                 countLessons: lessonProduct.countLessons,
                 addedAt: lessonProduct.addedAt,
-            }).returning('id');
+            }).returning(['id', 'productName', 'countLessons', 'studentId', 'refLinkId', 'paymentId', 'addedAt']);
 
             return {
-                id: lessonId[0].toString(),
-                productName: lessonProduct.productName,
-                countLessons: lessonProduct.countLessons,
+                id: createLesson[0].id,
+                productName: createLesson[0].productName,
+                countLessons: createLesson[0].countLessons,
             };
         } catch(error) {
             console.error(error);
 
             throw new Error('Referral not created');
         }
-    },
+    }
 }

@@ -1,6 +1,6 @@
 import {Request, Response, NextFunction} from "express";
 import {HTTP_STATUSES} from "../../utils";
-import {jwtService} from "../../application/jwt-service";
+import {jwtService} from "../../composition.root";
 
 export const authBearerMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const auth = req.headers.authorization

@@ -1,12 +1,16 @@
 import bcrypt from 'bcrypt';
 import {AuthLoginModel} from "../types/auth.input";
-import {studentsQueryRepository} from "../repositories/students-query-repository";
+import {StudentsQueryRepository} from "../repositories/students-query-repository";
 import {Student, StudentOutputType, StudentType} from "../types/student.output";
 import {CreateStudentByAdminModel, CreateStudentByReferrerModel} from "../types/student.input";
 import {v4 as uuidv4} from "uuid";
-import {studentsRepository} from "../repositories/students-repository";
+import {StudentsRepository} from "../repositories/students-repository";
 
-export const studentsService = {
+export class StudentsService {
+    constructor(protected studentsRepository: StudentsRepository,
+                protected studentsQueryRepository: StudentsQueryRepository ) {
+    }
+
     async createStudentByAdmin(createData: CreateStudentByAdminModel): Promise<StudentOutputType> {
         const passwordHash = await bcrypt.hash(createData.password, 10)
 
@@ -20,11 +24,11 @@ export const studentsService = {
             new Date()
         )
 
-        const createStudent = await studentsRepository
+        const createStudent = await this.studentsRepository
             .createStudent(newStudent)
 
         return createStudent
-    },
+    }
     async createStudentByReferrer(createData: {referrerId: string} & Omit<CreateStudentByReferrerModel, 'refLinkId'>): Promise<StudentOutputType> {
         const passwordHash = await bcrypt.hash(createData.password, 10)
 
@@ -38,13 +42,13 @@ export const studentsService = {
             new Date()
         )
 
-        const createStudent = await studentsRepository
+        const createStudent = await this.studentsRepository
             .createStudent(newStudent)
 
         return createStudent
-    },
+    }
     async checkCredentials(inputData: AuthLoginModel): Promise<StudentType | null> {
-        const student = await studentsQueryRepository
+        const student = await this.studentsQueryRepository
             .getStudentByPhoneOrEmail(inputData.phoneOrEmail)
 
         if (!student) {

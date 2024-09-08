@@ -2,6 +2,7 @@ import request from "supertest";
 import {HTTP_STATUSES} from "../src/utils";
 import {StudentOutputType} from "../src/types/student.output";
 import {app} from "../src/app";
+import {PaymentStatuses} from "../src/types/payment.output";
 
 describe('Referral program (e2e)', () => {
 
@@ -9,7 +10,7 @@ describe('Referral program (e2e)', () => {
     const passwordBasicAuth = process.env.BASIC_AUTH_PASSWORD;
 
     if (!loginBasicAuth || !passwordBasicAuth) {
-        throw new Error('BASIC_AUTH_LOGIN or BASIC_AUTH_PASSWORD is empty in env file')
+        throw new Error('Tests failed: BASIC_AUTH_LOGIN or BASIC_AUTH_PASSWORD is empty in env file')
     }
 
     let inviteLink: { inviteLink: string } | null = null
@@ -130,6 +131,38 @@ describe('Referral program (e2e)', () => {
         refreshTokenToStudent = createTokens.headers['set-cookie'][0].split('=')[1].split(';')[0]
 
         accessTokenToStudent = createTokens.body.accessToken
+    })
+
+    // ADD REFERRAL PAYMENTS INFO AND LESSONS TO STUDENT AND REFERRER
+    it('+ POST add referral payments student and lessons to student and referrer with correct data', async () => {
+        const addData = {
+            refLinkId: refLinkId,
+            amount: '150',
+            paymentStatus: PaymentStatuses.SUCCESS,
+            currency: 'RUR',
+            countLessons: '4',
+            productName: 'Test lessons'
+        }
+
+        const addPaymentAndLessons = await request(app)
+            .post('/payments/referral/add')
+            .auth(accessTokenToStudent, {type: 'bearer'})
+            .send(addData)
+            .expect(HTTP_STATUSES.CREATED_201)
+
+        const paymentAndLessons = addPaymentAndLessons.body
+
+        expect(paymentAndLessons).toEqual({
+            student: {
+                id: expect.any(String),
+                productName: addData.productName,
+                countLessons: +addData.countLessons
+            },
+            referrer: {
+                refLinkId: refLinkId,
+                bonusLessons: +addData.countLessons
+            }
+        })
     })
 
     // DELETE ALL DATA

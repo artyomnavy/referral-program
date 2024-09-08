@@ -1,6 +1,6 @@
 import {body} from "express-validator";
 import {inputModelValidation} from "../input-model-validation";
-import {studentsQueryRepository} from "../../repositories/students-query-repository";
+import {studentsQueryRepository} from "../../composition.root";
 
 const phoneOrEmailValidation = body('phoneOrEmail')
     .isString()

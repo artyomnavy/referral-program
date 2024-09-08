@@ -1,7 +1,7 @@
 import {db} from "../db/db";
 import {Referrer} from "../types/referrer.output";
 
-export const referrersQueryRepository = {
+export class ReferrersQueryRepository {
     async getReferrerById(id: string): Promise<Referrer | null> {
         try {
             const referrer = await db('Referrers')

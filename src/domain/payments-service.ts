@@ -1,13 +1,15 @@
 import {v4 as uuidv4} from "uuid";
 import {Payment} from "../types/payment.output";
 import {PaymentReferralModel} from "../types/payment.input";
-import {paymentsRepository} from "../repositories/payments-repository";
+import {PaymentsRepository} from "../repositories/payments-repository";
 
-export const paymentsService = {
+export class PaymentsService {
+    constructor(protected paymentsRepository: PaymentsRepository) {
+    }
     async addPaymentReferral(createData:
         {
             studentId: string
-        } & Omit<PaymentReferralModel, 'countLessons' | 'productName'>): Promise<string> {
+        } & Omit<PaymentReferralModel, 'countLessons' | 'productName'>): Promise<Payment> {
 
         const newPayment: Payment = new Payment(
             uuidv4(),
@@ -19,9 +21,9 @@ export const paymentsService = {
             new Date()
         )
 
-        const paymentId = await paymentsRepository
+        const payment = await this.paymentsRepository
             .addPayment(newPayment)
 
-        return paymentId
-    },
+        return payment
+    }
 }
