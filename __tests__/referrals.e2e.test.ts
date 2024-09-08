@@ -167,7 +167,7 @@ describe('Referral program (e2e)', () => {
     // GET REFERRAL STATISTIC FOR STUDENT
     it('+ GET referral statistic for student with correct data', async () => {
         const res = await request(app)
-            .get('/sa/students/referral-statistic')
+            .get('/students/referral-statistic')
             .auth(accessTokenToReferrer, {type: 'bearer'})
             .expect(HTTP_STATUSES.OK_200, {
                 studentId: studentByAdmin!.id,

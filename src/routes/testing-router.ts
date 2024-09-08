@@ -10,5 +10,6 @@ testingRouter.delete('/all-data',
         await db('Referrers').delete();
         await db('Payments').delete();
         await db('Lessons').delete();
+        await db('BlacklistRefreshTokens').delete();
         res.sendStatus(HTTP_STATUSES.NO_CONTENT_204)
     })
