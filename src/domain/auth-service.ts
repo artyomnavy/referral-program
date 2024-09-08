@@ -3,10 +3,13 @@ import {add} from "date-fns/add";
 import {ReferrersRepository} from "../repositories/referrers-repository";
 import {Referrer} from "../types/referrer.output";
 import {inject, injectable} from "inversify";
+import {RefreshTokenType} from "../types/auth.output";
+import {RefreshTokensRepository} from "../repositories/refresh-tokens-repository";
 
 @injectable()
 export class AuthService {
-    constructor(@inject(ReferrersRepository) protected referrersRepository: ReferrersRepository) {
+    constructor(@inject(ReferrersRepository) protected referrersRepository: ReferrersRepository,
+                @inject(RefreshTokensRepository) protected refreshTokensRepository: RefreshTokensRepository) {
     }
     async generateReferralLink(protocol: string, host: string, studentId: string) {
         const referrer = new Referrer(
@@ -24,5 +27,9 @@ export class AuthService {
         return {
             inviteLink: `${protocol}://${host}/auth/referral-registration?referrer=${refLink.id}`
         }
+    }
+    async addRefreshTokenToBlacklist(refreshToken: RefreshTokenType): Promise<boolean> {
+        return await this.refreshTokensRepository
+            .addRefreshTokenToBlacklist(refreshToken)
     }
 }

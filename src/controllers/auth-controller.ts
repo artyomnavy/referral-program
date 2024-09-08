@@ -159,4 +159,30 @@ export class AuthController {
                 .send({accessToken: accessToken})
         }
     }
+
+    async updateRefreshToken(req: Request, res: Response) {
+        const refreshToken = req.cookies.refreshToken
+
+        await this.authService
+            .addRefreshTokenToBlacklist({refreshToken})
+
+        const updateAccessToken = await this.jwtService
+            .createAccessJWT(req.studentId)
+
+        const updateRefreshToken = await this.jwtService
+            .createRefreshJWT(req.studentId)
+
+        res
+            .cookie('refreshToken', updateRefreshToken, {httpOnly: true, secure: true})
+            .status(HTTP_STATUSES.OK_200).send({accessToken: updateAccessToken})
+    }
+
+    async logoutStudent(req: Request, res: Response) {
+        const refreshToken = req.cookies.refreshToken
+
+        await this.authService
+            .addRefreshTokenToBlacklist({refreshToken})
+
+        res.sendStatus(HTTP_STATUSES.NO_CONTENT_204)
+    }
 }

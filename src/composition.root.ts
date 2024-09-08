@@ -14,6 +14,8 @@ import {AuthController} from "./controllers/auth-controller";
 import {PaymentsController} from "./controllers/payments-controller";
 import {StudentsController} from "./controllers/students-controller";
 import {Container} from "inversify";
+import {RefreshTokensRepository} from "./repositories/refresh-tokens-repository";
+import {RefreshTokensQueryRepository} from "./repositories/refresh-tokens-query-repository";
 
 export const container = new Container()
 
@@ -35,6 +37,9 @@ container.bind(StudentsQueryRepository).to(StudentsQueryRepository)
 
 container.bind(ReferrersRepository).to(ReferrersRepository)
 container.bind(ReferrersQueryRepository).to(ReferrersQueryRepository)
+
+container.bind(RefreshTokensRepository).to(RefreshTokensRepository)
+container.bind(RefreshTokensQueryRepository).to(RefreshTokensQueryRepository)
 
 container.bind(PaymentsRepository).to(PaymentsRepository)
 container.bind(LessonsRepository).to(LessonsRepository)

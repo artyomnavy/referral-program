@@ -181,7 +181,22 @@ describe('Referral program (e2e)', () => {
                     }
                 }
             })
+    })
 
+    // LOGOUT STUDENT BY ADMIN
+    it('+ POST logout student by admin', async () => {
+        await request(app)
+            .post('/auth/logout')
+            .set('Cookie', [`refreshToken=${refreshTokenToReferrer}`])
+            .expect(HTTP_STATUSES.NO_CONTENT_204)
+    })
+
+    // UPDATE REFRESH TOKEN STUDENT BY ADMIN
+    it('- POST update refresh token student by admin', async () => {
+        await request(app)
+            .post('/auth/refresh-token')
+            .set('Cookie', [`refreshToken=${refreshTokenToReferrer}`])
+            .expect(HTTP_STATUSES.UNAUTHORIZED_401)
     })
 
     // DELETE ALL DATA
