@@ -1,10 +1,10 @@
 import "reflect-metadata";
-import {StudentsRepository} from "./repositories/students-repository";
-import {StudentsQueryRepository} from "./repositories/students-query-repository";
-import {ReferrersRepository} from "./repositories/referrers-repository";
-import {ReferrersQueryRepository} from "./repositories/referrers-query-repository";
-import {PaymentsRepository} from "./repositories/payments-repository";
-import {LessonsRepository} from "./repositories/lessons-repository";
+import {StudentsRepository} from "./repositories/students/students-repository";
+import {StudentsQueryRepository} from "./repositories/students/students-query-repository";
+import {ReferrersRepository} from "./repositories/referrers/referrers-repository";
+import {ReferrersQueryRepository} from "./repositories/referrers/referrers-query-repository";
+import {PaymentsRepository} from "./repositories/payments/payments-repository";
+import {LessonsRepository} from "./repositories/lessons/lessons-repository";
 import {StudentsService} from "./domain/students-service";
 import {PaymentsService} from "./domain/payments-service";
 import {LessonsService} from "./domain/lessons-service";
@@ -14,8 +14,8 @@ import {AuthController} from "./controllers/auth-controller";
 import {PaymentsController} from "./controllers/payments-controller";
 import {StudentsController} from "./controllers/students-controller";
 import {Container} from "inversify";
-import {RefreshTokensRepository} from "./repositories/refresh-tokens-repository";
-import {RefreshTokensQueryRepository} from "./repositories/refresh-tokens-query-repository";
+import {RefreshTokensRepository} from "./repositories/refresh-tokens/refresh-tokens-repository";
+import {RefreshTokensQueryRepository} from "./repositories/refresh-tokens/refresh-tokens-query-repository";
 
 export const container = new Container()
 

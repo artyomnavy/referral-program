@@ -1,4 +1,4 @@
-import {PaymentStatuses} from "../utils";
+import {PaymentStatuses} from "../../utils";
 
 export class Payment {
     constructor(

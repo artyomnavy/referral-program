@@ -2,7 +2,7 @@ import {Request, Response, NextFunction} from "express";
 import {HTTP_STATUSES} from "../../utils";
 import {container} from "../../composition.root";
 import {JwtService} from "../../application/jwt-service";
-import {RefreshTokensQueryRepository} from "../../repositories/refresh-tokens-query-repository";
+import {RefreshTokensQueryRepository} from "../../repositories/refresh-tokens/refresh-tokens-query-repository";
 
 const jwtService = container.resolve(JwtService)
 const refreshTokensQueryRepository = container.resolve(RefreshTokensQueryRepository)

@@ -1,7 +1,7 @@
 import {StudentsService} from "../domain/students-service";
-import {StudentsQueryRepository} from "../repositories/students-query-repository";
-import {RequestWithBody} from "../types/common";
-import {CreateStudentByAdminModel} from "../types/student.input";
+import {StudentsQueryRepository} from "../repositories/students/students-query-repository";
+import {RequestWithBody} from "../models/common";
+import {CreateStudentByAdminModel} from "../models/students/student.input";
 import {Request, Response} from "express";
 import {HTTP_STATUSES} from "../utils";
 import {inject, injectable} from "inversify";

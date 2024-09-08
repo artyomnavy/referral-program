@@ -1,9 +1,9 @@
-import {StudentsQueryRepository} from "../repositories/students-query-repository";
-import {ReferrersQueryRepository} from "../repositories/referrers-query-repository";
+import {StudentsQueryRepository} from "../repositories/students/students-query-repository";
+import {ReferrersQueryRepository} from "../repositories/referrers/referrers-query-repository";
 import {PaymentsService} from "../domain/payments-service";
 import {LessonsService} from "../domain/lessons-service";
-import {RequestWithBody} from "../types/common";
-import {PaymentReferralModel} from "../types/payment.input";
+import {RequestWithBody} from "../models/common";
+import {PaymentReferralModel} from "../models/payments/payment.input";
 import {Response} from "express";
 import {HTTP_STATUSES} from "../utils";
 import {inject, injectable} from "inversify";

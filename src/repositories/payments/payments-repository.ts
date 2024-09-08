@@ -1,5 +1,5 @@
-import {db} from "../db/db";
-import {Payment} from "../types/payment.output";
+import {db} from "../../db/db";
+import {Payment} from "../../models/payments/payment.output";
 import {injectable} from "inversify";
 
 @injectable()

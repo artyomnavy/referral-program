@@ -1,7 +1,7 @@
 import {v4 as uuidv4} from "uuid";
-import {Payment} from "../types/payment.output";
-import {PaymentReferralModel} from "../types/payment.input";
-import {PaymentsRepository} from "../repositories/payments-repository";
+import {Payment} from "../models/payments/payment.output";
+import {PaymentReferralModel} from "../models/payments/payment.input";
+import {PaymentsRepository} from "../repositories/payments/payments-repository";
 import {inject, injectable} from "inversify";
 
 @injectable()

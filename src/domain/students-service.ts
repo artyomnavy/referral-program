@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt';
-import {AuthLoginModel} from "../types/auth.input";
-import {StudentsQueryRepository} from "../repositories/students-query-repository";
-import {Student, StudentOutputType, StudentType} from "../types/student.output";
-import {CreateStudentByAdminModel, CreateStudentByReferrerModel} from "../types/student.input";
+import {AuthLoginModel} from "../models/auth/auth.input";
+import {StudentsQueryRepository} from "../repositories/students/students-query-repository";
+import {Student, StudentOutputType, StudentType} from "../models/students/student.output";
+import {CreateStudentByAdminModel, CreateStudentByReferrerModel} from "../models/students/student.input";
 import {v4 as uuidv4} from "uuid";
-import {StudentsRepository} from "../repositories/students-repository";
+import {StudentsRepository} from "../repositories/students/students-repository";
 import {inject, injectable} from "inversify";
 
 @injectable()

@@ -1,14 +1,14 @@
 import {injectable, inject} from "inversify";
 import {Response, Request} from "express";
-import {ReferrersQueryRepository} from "../repositories/referrers-query-repository";
+import {ReferrersQueryRepository} from "../repositories/referrers/referrers-query-repository";
 import {AuthService} from "../domain/auth-service";
 import {HTTP_STATUSES} from "../utils";
 import {JwtService} from "../application/jwt-service";
-import {RequestWithBody, RequestWithQuery} from "../types/common";
-import {ReferrersRepository} from "../repositories/referrers-repository";
-import {CreateStudentByReferrerModel} from "../types/student.input";
+import {RequestWithBody, RequestWithQuery} from "../models/common";
+import {ReferrersRepository} from "../repositories/referrers/referrers-repository";
+import {CreateStudentByReferrerModel} from "../models/students/student.input";
 import {StudentsService} from "../domain/students-service";
-import {AuthLoginModel} from "../types/auth.input";
+import {AuthLoginModel} from "../models/auth/auth.input";
 
 
 @injectable()

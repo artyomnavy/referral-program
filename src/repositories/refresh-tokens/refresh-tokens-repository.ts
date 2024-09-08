@@ -1,6 +1,6 @@
 import {injectable} from "inversify";
-import {RefreshTokenType} from "../types/auth.output";
-import {db} from "../db/db";
+import {RefreshTokenType} from "../../models/auth/auth.output";
+import {db} from "../../db/db";
 
 @injectable()
 export class RefreshTokensRepository {

@@ -1,5 +1,5 @@
-import {db} from "../db/db";
-import {Referrer} from "../types/referrer.output";
+import {db} from "../../db/db";
+import {Referrer} from "../../models/referrers/referrer.output";
 import {injectable} from "inversify";
 
 @injectable()

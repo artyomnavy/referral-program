@@ -1,10 +1,10 @@
 import {v4 as uuidv4} from "uuid";
 import {add} from "date-fns/add";
-import {ReferrersRepository} from "../repositories/referrers-repository";
-import {Referrer} from "../types/referrer.output";
+import {ReferrersRepository} from "../repositories/referrers/referrers-repository";
+import {Referrer} from "../models/referrers/referrer.output";
 import {inject, injectable} from "inversify";
-import {RefreshTokenType} from "../types/auth.output";
-import {RefreshTokensRepository} from "../repositories/refresh-tokens-repository";
+import {RefreshTokenType} from "../models/auth/auth.output";
+import {RefreshTokensRepository} from "../repositories/refresh-tokens/refresh-tokens-repository";
 
 @injectable()
 export class AuthService {

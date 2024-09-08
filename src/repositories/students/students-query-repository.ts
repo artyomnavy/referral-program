@@ -1,5 +1,5 @@
-import {StudentOutputType, StudentReferralStatisticOutputType, StudentType} from "../types/student.output";
-import {db} from "../db/db";
+import {StudentOutputType, StudentReferralStatisticOutputType, StudentType} from "../../models/students/student.output";
+import {db} from "../../db/db";
 import {injectable} from "inversify";
 
 @injectable()

@@ -1,7 +1,7 @@
 import {body} from "express-validator";
 import {inputModelValidation} from "../input-model-validation";
 import {container} from "../../composition.root";
-import {StudentsQueryRepository} from "../../repositories/students-query-repository";
+import {StudentsQueryRepository} from "../../repositories/students/students-query-repository";
 
 const studentsQueryRepository = container.resolve(StudentsQueryRepository)
 
