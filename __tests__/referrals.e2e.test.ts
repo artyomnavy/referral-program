@@ -75,7 +75,7 @@ describe('Referral program (e2e)', () => {
     it('+ POST generate referral link by student by admin', async () => {
         const generateLink = await request(app)
             .post('/auth/generation-referral-link')
-            .auth(accessTokenToReferrer, { type: 'bearer' })
+            .auth(accessTokenToReferrer, {type: 'bearer'})
             .expect(HTTP_STATUSES.OK_200)
 
         inviteLink = generateLink.body
@@ -164,8 +164,28 @@ describe('Referral program (e2e)', () => {
         })
     })
 
+    // GET REFERRAL STATISTIC FOR STUDENT
+    it('+ GET referral statistic for student with correct data', async () => {
+        const res = await request(app)
+            .get('/sa/students/referral-statistic')
+            .auth(accessTokenToReferrer, {type: 'bearer'})
+            .expect(HTTP_STATUSES.OK_200, {
+                studentId: studentByAdmin!.id,
+                referrals: {
+                    totalCount: 1,
+                    students: {
+                        referrals: [{
+                            id: studentByReferrer!.id,
+                            fullName: studentByReferrer!.fullName
+                        }]
+                    }
+                }
+            })
+
+    })
+
     // DELETE ALL DATA
-    afterAll(async() => {
+    afterAll(async () => {
         await request(app)
             .delete('/testing/all-data')
             .expect(HTTP_STATUSES.NO_CONTENT_204)

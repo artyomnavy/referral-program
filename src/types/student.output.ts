@@ -16,6 +16,19 @@ export type StudentOutputType = {
     referrerId: string | null
 }
 
+export type StudentReferralStatisticOutputType = {
+    studentId: string,
+    referrals: {
+        totalCount: number,
+        students: {
+            referrals: {
+                id: string,
+                fullName: string
+            }[]
+        }
+    }
+}
+
 export class Student {
     constructor(
         public id: string,

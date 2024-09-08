@@ -1,13 +1,16 @@
 import {StudentsService} from "../domain/students-service";
+import {StudentsQueryRepository} from "../repositories/students-query-repository";
 import {RequestWithBody} from "../types/common";
 import {CreateStudentByAdminModel} from "../types/student.input";
-import {Response} from "express";
+import {Request, Response} from "express";
 import {HTTP_STATUSES} from "../utils";
 import {inject, injectable} from "inversify";
 
 @injectable()
 export class StudentsController {
-    constructor(@inject(StudentsService) protected studentsService: StudentsService) {
+    constructor(@inject(StudentsService) protected studentsService: StudentsService,
+                @inject(StudentsQueryRepository) protected studentsQueryRepository: StudentsQueryRepository,
+    ) {
     }
 
     async createStudentByAdmin(req: RequestWithBody<CreateStudentByAdminModel>, res: Response) {
@@ -19,5 +22,19 @@ export class StudentsController {
         res
             .status(HTTP_STATUSES.CREATED_201)
             .send(createStudent)
+    }
+
+    async getReferralStatisticForStudent(req: Request, res: Response) {
+        const studentId = req.studentId;
+
+        const statistic = await this.studentsQueryRepository.getReferralStatisticForStudent(studentId);
+
+        if (!statistic) {
+            throw new Error('Statistic is empty')
+        }
+
+        res
+            .status(HTTP_STATUSES.OK_200)
+            .send(statistic)
     }
 }
