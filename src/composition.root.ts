@@ -16,6 +16,7 @@ import {StudentsController} from "./controllers/students-controller";
 import {Container} from "inversify";
 import {RefreshTokensRepository} from "./repositories/refresh-tokens/refresh-tokens-repository";
 import {RefreshTokensQueryRepository} from "./repositories/refresh-tokens/refresh-tokens-query-repository";
+import {CreateStudentUseCase} from "./domain/use-cases/create-student.use-case";
 
 export const container = new Container()
 
@@ -30,6 +31,9 @@ container.bind(StudentsService).to(StudentsService)
 container.bind(PaymentsService).to(PaymentsService)
 container.bind(LessonsService).to(LessonsService)
 container.bind(AuthService).to(AuthService)
+
+// Use-cases
+container.bind(CreateStudentUseCase).to(CreateStudentUseCase)
 
 // Repositories
 container.bind(StudentsRepository).to(StudentsRepository)

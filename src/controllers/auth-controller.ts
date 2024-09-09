@@ -6,9 +6,10 @@ import {HTTP_STATUSES} from "../utils";
 import {JwtService} from "../application/jwt-service";
 import {RequestWithBody, RequestWithQuery} from "../models/common";
 import {ReferrersRepository} from "../repositories/referrers/referrers-repository";
-import {CreateStudentByReferrerModel} from "../models/students/student.input";
 import {StudentsService} from "../domain/students-service";
 import {AuthLoginModel} from "../models/auth/auth.input";
+import {CreateStudentUseCase} from "../domain/use-cases/create-student.use-case";
+import {CreateStudentModel} from "../models/students/student.input";
 
 
 @injectable()
@@ -18,6 +19,7 @@ export class AuthController {
                 @inject(StudentsService) protected studentsService: StudentsService,
                 @inject(ReferrersRepository) protected referrersRepository: ReferrersRepository,
                 @inject(ReferrersQueryRepository) protected referrersQueryRepository: ReferrersQueryRepository,
+                @inject(CreateStudentUseCase) protected createStudentUseCase: CreateStudentUseCase,
     ) {
     }
 
@@ -95,10 +97,10 @@ export class AuthController {
         res.send(formHtml).status(HTTP_STATUSES.OK_200);
     }
 
-    async createStudentByReferrer(req: RequestWithBody<CreateStudentByReferrerModel>, res: Response) {
+    async createStudentByReferrer(req: RequestWithBody<CreateStudentModel>, res: Response) {
         const {refLinkId, fullName, phone, email, password} = req.body
 
-        const referrer = await this.referrersQueryRepository.getReferrerById(refLinkId)
+        const referrer = await this.referrersQueryRepository.getReferrerById(refLinkId!)
 
         if (!referrer) {
             res.status(HTTP_STATUSES.NOT_FOUND_404).send('Student not found')
@@ -121,8 +123,8 @@ export class AuthController {
             return
         }
 
-        const createStudent = await this.studentsService
-            .createStudentByReferrer({referrerId: referrer.studentId, fullName, phone, password, email})
+        const createStudent = await this.createStudentUseCase
+            .execute({referrerId: referrer.studentId, fullName, phone, password, email})
 
         res
             .status(HTTP_STATUSES.CREATED_201)

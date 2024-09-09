@@ -1,54 +1,15 @@
 import bcrypt from 'bcrypt';
 import {AuthLoginModel} from "../models/auth/auth.input";
 import {StudentsQueryRepository} from "../repositories/students/students-query-repository";
-import {Student, StudentOutputType, StudentType} from "../models/students/student.output";
-import {CreateStudentByAdminModel, CreateStudentByReferrerModel} from "../models/students/student.input";
-import {v4 as uuidv4} from "uuid";
+import {StudentType} from "../models/students/student.output";
 import {StudentsRepository} from "../repositories/students/students-repository";
 import {inject, injectable} from "inversify";
 
 @injectable()
 export class StudentsService {
-    constructor(@inject(StudentsRepository) protected studentsRepository: StudentsRepository,
-                @inject(StudentsQueryRepository) protected studentsQueryRepository: StudentsQueryRepository ) {
+    constructor(@inject(StudentsQueryRepository) protected studentsQueryRepository: StudentsQueryRepository) {
     }
 
-    async createStudentByAdmin(createData: CreateStudentByAdminModel): Promise<StudentOutputType> {
-        const passwordHash = await bcrypt.hash(createData.password, 10)
-
-        const newStudent: Student = new Student(
-            uuidv4(),
-            createData.fullName,
-            createData.phone,
-            createData.email,
-            passwordHash,
-            null,
-            new Date()
-        )
-
-        const createStudent = await this.studentsRepository
-            .createStudent(newStudent)
-
-        return createStudent
-    }
-    async createStudentByReferrer(createData: {referrerId: string} & Omit<CreateStudentByReferrerModel, 'refLinkId'>): Promise<StudentOutputType> {
-        const passwordHash = await bcrypt.hash(createData.password, 10)
-
-        const newStudent: Student = new Student(
-            uuidv4(),
-            createData.fullName,
-            createData.phone,
-            createData.email,
-            passwordHash,
-            createData.referrerId,
-            new Date()
-        )
-
-        const createStudent = await this.studentsRepository
-            .createStudent(newStudent)
-
-        return createStudent
-    }
     async checkCredentials(inputData: AuthLoginModel): Promise<StudentType | null> {
         const student = await this.studentsQueryRepository
             .getStudentByPhoneOrEmail(inputData.phoneOrEmail)

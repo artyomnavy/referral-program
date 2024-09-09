@@ -61,6 +61,7 @@ const fullNameValidation = body('fullName')
 export const referrerValidation = body('refLinkId')
     .isString()
     .trim()
+    .notEmpty()
     .isUUID('4')
     .withMessage('Invalid refLinkId')
 
