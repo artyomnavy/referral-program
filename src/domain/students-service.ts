@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt';
 import {AuthLoginModel} from "../models/auth/auth.input";
 import {StudentsQueryRepository} from "../repositories/students/students-query-repository";
 import {StudentType} from "../models/students/student.output";
-import {StudentsRepository} from "../repositories/students/students-repository";
 import {inject, injectable} from "inversify";
 
 @injectable()
